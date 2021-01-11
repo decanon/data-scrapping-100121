@@ -1,4 +1,5 @@
 .idea/
+rwid_scraper_results/*.*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
