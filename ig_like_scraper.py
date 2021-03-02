@@ -19,9 +19,13 @@ if session is not None:
     end_cursor = ''
     count = 0
 
-    writer = csv.writer(open('{}/{}.csv'.format(result_dir, shortcode), 'w', newline=''))
+    csv_file = open('{}/{}.csv'.format(result_dir, shortcode), 'w', newline='')
+    writer = csv.writer(csv_file)
     headers = ['User Name', 'Full Name', 'Profile Pict']
     writer.writerow(headers)
+    csv_file.close()
+    csv_file = open('{}/{}.csv'.format(result_dir, shortcode), 'a', newline='', encoding='utf-8')
+    writer = csv.writer(csv_file)
 
     while 1:
         variables = {
@@ -51,8 +55,6 @@ if session is not None:
             full_name = user['node']['full_name']
             profile_pic_url = user['node']['profile_pic_url']
             print(count, username, full_name, profile_pic_url)
-            writer = csv.writer(
-                open('{}/{}.csv'.format(result_dir, shortcode), 'a', newline='', encoding='utf-8'))
             data = [username, full_name, profile_pic_url]
             writer.writerow(data)
 
@@ -64,3 +66,5 @@ if session is not None:
             break
 
         time.sleep(2)
+
+    csv_file.close()
